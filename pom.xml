@@ -24,6 +24,7 @@
         <module>authenticationService</module>
         <module>eureka</module>
         <module>gateway</module>
+        <module>hospitalService</module>
     </modules>
 
     <dependencyManagement>

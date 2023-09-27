@@ -26,6 +26,10 @@ spring:
           uri: lb://anagservice
           predicates:
             - Path=/anag/**
+        - id: hospservice
+          uri: lb://hospservice
+          predicates:
+            - Path=/hosp/**
 
 eureka:
   client:

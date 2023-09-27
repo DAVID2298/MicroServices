@@ -17,4 +17,9 @@ public class AnagraficaController {
         return service.save(anagraficaDTO);
     }
 
+    @GetMapping("/getProfile")
+    public AnagraficaDTO getProfile(@RequestParam("id") Long id) {
+        return service.getProfile(id);
+    }
+
 }

@@ -18,4 +18,8 @@ public class AnagraficaService {
     public AnagraficaDTO save(AnagraficaDTO anagraficaDTO) {
         return mapper.toAnagraficaDTO(repository.save(mapper.toAnagrafica(anagraficaDTO)));
     }
+
+    public AnagraficaDTO getProfile (Long id) {
+        return mapper.toAnagraficaDTO(repository.getReferenceById(id));
+    }
 }
