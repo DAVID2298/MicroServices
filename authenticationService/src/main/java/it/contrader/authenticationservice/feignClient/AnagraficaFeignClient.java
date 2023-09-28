@@ -3,6 +3,7 @@ package it.contrader.authenticationservice.feignClient;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import it.contrader.authenticationservice.dto.AnagraficaDTO;
+import it.contrader.authenticationservice.dto.OspedaleDTO;
 import it.contrader.authenticationservice.security.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -23,6 +24,9 @@ public interface AnagraficaFeignClient {
 
     @PostMapping("/anag/registerAnagrafica")
     AnagraficaDTO register(@RequestBody AnagraficaDTO anagraficaDTO);
+
+    @PostMapping("/ospedale/registerOspedale")
+    OspedaleDTO reg(@RequestBody OspedaleDTO ospedaleDTO);
 }
 
 @Slf4j
@@ -35,6 +39,10 @@ class AnagraficaFallback implements FallbackFactory<AnagraficaFeignClient> {
             @Override
             public AnagraficaDTO register(AnagraficaDTO anagraficaDTO) {
                 throw new RuntimeException("Errore durante la creazione dell'anagrafica - ERROR: " + cause);
+            }
+            @Override
+            public OspedaleDTO reg(OspedaleDTO ospedaleDTO){
+                throw new RuntimeException("Errore durante la creazione dell'ospedale - ERROR: " + cause);
             }
         };
 

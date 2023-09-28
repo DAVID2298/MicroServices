@@ -22,6 +22,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +85,7 @@ public class UserService {
             .email(signUpRequest.getEmail())
             .username(signUpRequest.getUsername())
             .password(encoder.encode(signUpRequest.getPassword()))
+                        .creationDate(LocalDateTime.now())
             .roles(authService.createRoles(signUpRequest.getRoles()))
             .build());
 
@@ -95,6 +98,18 @@ public class UserService {
             anagraficaFeignClient.register(signUpRequest.getAnagrafica());
         } catch (FeignException e) {
             throw new CustomFeignException("Errore durante la registrazione dell'anagrafica", e);
+        }
+
+        if (savedUser.getRoles().toString().contains("ADMIN")){
+            try {
+                signUpRequest.getOspedale().setUserId(savedUser.getId());
+                anagraficaFeignClient.reg(signUpRequest.getOspedale());
+
+            } catch (FeignException e) {
+                throw new CustomFeignException("Errore durante la registrazione dell'ospedale", e);
+            }
+        }else {
+            System.out.println(savedUser.getRoles().toString());
         }
 
     }
