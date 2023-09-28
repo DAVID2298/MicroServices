@@ -23,5 +23,7 @@ public class PrenotazioneDTO {
 
     private Long userId;
 
+    private String numPrenotazione;
+
     private Long visitaId;
 }

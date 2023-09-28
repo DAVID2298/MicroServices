@@ -1,33 +1,32 @@
-package it.contrader.hospitalservice.model;
+package it.contrader.anagraficaservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Visita {
+@Data
+public class Ospedale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String tipologia;
-
-    @Column(unique = true)
     private String nome;
+
+    private String indirizzo;
+
+    private String provincia;
+
+    private String citta;
 
     private String descrizione;
 
-    private Double prezzo;
+    @Column(unique = true)
+    private Long userId;
 
-    private Long codice;
 }

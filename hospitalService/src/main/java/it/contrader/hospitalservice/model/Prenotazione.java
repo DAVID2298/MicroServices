@@ -29,8 +29,7 @@ public class Prenotazione {
 
     private Long userId;
 
+    private String numPrenotazione;
 
-    @ManyToOne
-    @JoinColumn(name = "visitaId", referencedColumnName = "id")
-    Visita visita;
+    private Long visitaId;
 }

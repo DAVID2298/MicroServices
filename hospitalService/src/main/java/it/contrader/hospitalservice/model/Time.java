@@ -21,9 +21,7 @@ public class Time {
     @Column(length = 5)
     private String hour;
 
-    @ManyToOne
-    @JoinColumn(name = "visitaId", referencedColumnName = "id")
-    Visita visita;
+    private Long visitaId;
 
 
 }

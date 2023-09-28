@@ -3,35 +3,23 @@ package it.contrader.anagraficaservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class Anagrafica {
+public class UserImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-
-    private String cognome;
-
-    private String nazionalita;
-
-    private String indirizzo;
-
-    private String genere;
-
-    private String provincia;
-
-    private String citta;
-
-    private LocalDate dataDiNascita;
+    @Lob
+    @Column(name = "imagedata")
+    private byte[] imageData;
 
     @Column(unique = true)
     private Long userId;

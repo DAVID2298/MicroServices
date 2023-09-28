@@ -23,7 +23,6 @@ public class VisitaImage {
     @Column(name = "imagedata")
     private byte[] imageData;
 
-    @ManyToOne
-    @JoinColumn(name = "visitaId", referencedColumnName = "id")
-    Visita visita;
+    @Column
+    private Long visitaId;
 }
