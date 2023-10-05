@@ -21,7 +21,7 @@ spring:
         - id: authservice
           uri: lb://authservice
           predicates:
-            - Path=/auth/**
+            - Path=/authservice/**
         - id: anagservice
           uri: lb://anagservice
           predicates:
