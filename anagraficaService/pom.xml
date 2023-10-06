@@ -130,7 +130,7 @@
                         <image>${jib.base.image}</image>
                     </from>
                     <to>
-                        <image>${DOCKER_REPOSITORY}/formazione/microservizi/micro-anagrafica</image>
+                        <image>${DOCKER_REPOSITORY}/formazione/microservizi/${PROJECT}/micro-anagrafica</image>
                         <tags>v${project.version},latest</tags>
                         <auth>
                             <username>${DOCKER_USERNAME}</username>
