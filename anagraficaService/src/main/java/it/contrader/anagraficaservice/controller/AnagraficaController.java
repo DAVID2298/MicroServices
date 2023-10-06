@@ -16,7 +16,7 @@ public class AnagraficaController {
     @Autowired
     private AnagraficaService service;
 
-    @PostMapping("/registerAnagrafica")
+    @PostMapping("/register")
     public AnagraficaDTO register(@RequestBody AnagraficaDTO anagraficaDTO) {
         return service.save(anagraficaDTO);
     }

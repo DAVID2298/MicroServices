@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 @FeignClient(name = "anagservice", configuration = FeigClientConfig.class)
 public interface AnagraficaFeignClient {
 
-    @PostMapping("/anag/registerAnagrafica")
+    @PostMapping("/anagservice/anag/register")
     AnagraficaDTO register(@RequestBody AnagraficaDTO anagraficaDTO);
 
-    @PostMapping("/ospedale/registerOspedale")
+    @PostMapping("/anagservice/ospedale/registerOspedale")
     OspedaleDTO reg(@RequestBody OspedaleDTO ospedaleDTO);
 }
 
