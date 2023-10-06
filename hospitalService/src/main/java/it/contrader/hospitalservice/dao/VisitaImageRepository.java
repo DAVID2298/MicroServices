@@ -17,6 +17,6 @@ public interface VisitaImageRepository extends JpaRepository<VisitaImage, Long> 
 
     List<VisitaImage> findAllByVisitaId(Long visitaId);
 
-    @Query(value = "SELECT image FROM VisitaImage WHERE visita_id = :visitaId", nativeQuery = true)
+    @Query(value = "SELECT imagedata FROM Visita_Image WHERE visita_id = :visitaId", nativeQuery = true)
     List<byte[]> findImageData(@Param("visitaId") Long visitaId);
 }

@@ -138,4 +138,13 @@ public class UserService {
     public void delete(Long id){
         userRepository.deleteById(id);
     }
+
+    public UserDTO read(long id) {
+        return mapper.toUserDTO(userRepository.findById(id).get());
+    }
+
+    public List<UserDTO> getAll(){
+        return mapper.toUserDTOList(userRepository.findAll());
+    }
+
 }

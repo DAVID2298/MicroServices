@@ -6,8 +6,11 @@ import it.contrader.anagraficaservice.dto.AnagraficaDTO;
 import it.contrader.anagraficaservice.dto.Message;
 import it.contrader.anagraficaservice.service.AnagraficaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/anag")
@@ -31,5 +34,16 @@ public class AnagraficaController {
 
         }
     }
+
+    @GetMapping("/getall")
+    public ResponseEntity<List<AnagraficaDTO>> getAll() {
+        return new ResponseEntity(service.findAll(), HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public AnagraficaDTO update(@RequestBody AnagraficaDTO anagraficaDTO){
+        return service.save(anagraficaDTO);
+    }
+
 
 }

@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -41,9 +43,20 @@ public class AuthController {
         return userService.update(userDTO);
     }
 
+    @GetMapping("/read")
+    public UserDTO read(@RequestParam("id") long id) {
+        return userService.read(id);
+    }
+
+
     @DeleteMapping("/delete")
     public void delete(@RequestParam("id") Long id){
         userService.delete(id);
+    }
+
+    @GetMapping("/getall")
+    public List<UserDTO> getAll(){
+        return userService.getAll();
     }
 
 

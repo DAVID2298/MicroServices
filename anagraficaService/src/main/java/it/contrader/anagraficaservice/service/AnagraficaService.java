@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.List;
 
 @Service
 public class AnagraficaService {
@@ -28,4 +29,9 @@ public class AnagraficaService {
     public AnagraficaDTO save(AnagraficaDTO anagraficaDTO) {
         return mapper.toAnagraficaDTO(repository.save(mapper.toAnagrafica(anagraficaDTO)));
     }
+
+    public List<AnagraficaDTO> findAll(){
+        return mapper.toAnagraficaDTOList(repository.findAll());
+    }
 }
+
