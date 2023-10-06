@@ -81,7 +81,33 @@ services:
     volumes:
       - db-authentication-data:/var/lib/mysql
 
+  micro-hospital:
+    image: ${DOCKER_REPOSITORY:-local}/formazione/microservizi/micro-hospital:latest
+    restart: always
+    depends_on:
+      - db-hospital
+      - eureka
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-hospital:3306/hospital?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false #collegato al network del db1
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      <<: *env
+
+  db-hospital:
+    image: mysql:8.0.28
+    ports:
+      - "3320:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: dbhospital
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    volumes:
+      - db-hospital-data:/var/lib/mysql
+
 # Volumes
 volumes:
   db-anagrafica-data:
   db-authentication-data:
+  db-hospital-data:

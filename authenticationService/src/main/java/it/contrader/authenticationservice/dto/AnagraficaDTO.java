@@ -17,11 +17,15 @@ public class AnagraficaDTO {
 
     private String cognome;
 
-    private String codiceFiscale;
-
     private String nazionalita;
 
     private String indirizzo;
+
+    private String genere;
+
+    private String provincia;
+
+    private String citta;
 
     private LocalDate dataDiNascita;
 

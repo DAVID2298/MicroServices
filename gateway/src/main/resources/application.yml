@@ -21,11 +21,15 @@ spring:
         - id: authservice
           uri: lb://authservice
           predicates:
-            - Path=/auth/**
+            - Path=/authservice/**
         - id: anagservice
           uri: lb://anagservice
           predicates:
-            - Path=/anag/**
+            - Path=/anagservice/**
+        - id: hospservice
+          uri: lb://hospservice
+          predicates:
+            - Path=/hospservice/**
 
 eureka:
   client:

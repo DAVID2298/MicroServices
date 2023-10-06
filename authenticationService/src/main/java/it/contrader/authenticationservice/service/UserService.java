@@ -7,7 +7,9 @@ import it.contrader.authenticationservice.customException.UsernameAlreadyInUseEx
 import it.contrader.authenticationservice.dto.LoggedUserDTO;
 import it.contrader.authenticationservice.dto.LoginDTO;
 import it.contrader.authenticationservice.dto.SignupDTO;
+import it.contrader.authenticationservice.dto.UserDTO;
 import it.contrader.authenticationservice.feignClient.AnagraficaFeignClient;
+import it.contrader.authenticationservice.mapper.UserMapper;
 import it.contrader.authenticationservice.model.User;
 import it.contrader.authenticationservice.repository.UserRepository;
 import it.contrader.authenticationservice.security.JwtUtils;
@@ -22,7 +24,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +35,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserMapper mapper;
 
     @Autowired
     private AnagraficaFeignClient anagraficaFeignClient;
@@ -83,6 +91,7 @@ public class UserService {
             .email(signUpRequest.getEmail())
             .username(signUpRequest.getUsername())
             .password(encoder.encode(signUpRequest.getPassword()))
+                        .creationDate(LocalDateTime.now())
             .roles(authService.createRoles(signUpRequest.getRoles()))
             .build());
 
@@ -97,5 +106,45 @@ public class UserService {
             throw new CustomFeignException("Errore durante la registrazione dell'anagrafica", e);
         }
 
+        if (savedUser.getRoles().toString().contains("ADMIN")){
+            try {
+                signUpRequest.getOspedale().setUserId(savedUser.getId());
+                anagraficaFeignClient.reg(signUpRequest.getOspedale());
+
+            } catch (FeignException e) {
+                throw new CustomFeignException("Errore durante la registrazione dell'ospedale", e);
+            }
+        }else {
+            System.out.println(savedUser.getRoles().toString());
+        }
+
     }
+
+    public UserDTO update (UserDTO userDTO) {
+        //   return  mapper.toUserDTO(userRepository.save(mapper.toUser(userDTO)));
+        Optional<User> user = userRepository.findById(userDTO.getId());
+        if (user.get().getPassword().equalsIgnoreCase(userDTO.getPassword())){
+            userDTO.setRoles(user.get().getRoles());
+            userDTO.setCreationDate(user.get().getCreationDate());
+            return mapper.toUserDTO(userRepository.save(mapper.toUser(userDTO)));
+        }else {
+            userDTO.setRoles(user.get().getRoles());
+            userDTO.setCreationDate(user.get().getCreationDate());
+            userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+            return mapper.toUserDTO(userRepository.save(mapper.toUser(userDTO)));
+        }
+    }
+
+    public void delete(Long id){
+        userRepository.deleteById(id);
+    }
+
+    public UserDTO read(long id) {
+        return mapper.toUserDTO(userRepository.findById(id).get());
+    }
+
+    public List<UserDTO> getAll(){
+        return mapper.toUserDTOList(userRepository.findAll());
+    }
+
 }
