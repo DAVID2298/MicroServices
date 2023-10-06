@@ -21,9 +21,9 @@ pipelines:
         script:
           - docker-compose build
           - docker login $DOCKER_REPOSITORY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          - docker push $DOCKER_REPOSITORY/formazione/microservizi/eureka
-          - docker push $DOCKER_REPOSITORY/formazione/microservizi/gateway
-          - docker push $DOCKER_REPOSITORY/formazione/microservizi/micro-authentication
+          - docker push $DOCKER_REPOSITORY/formazione/microservizi/${PROJECT}/eureka
+          - docker push $DOCKER_REPOSITORY/formazione/microservizi/${PROJECT}/gateway
+          - docker push $DOCKER_REPOSITORY/formazione/microservizi/${PROJECT}/micro-authentication
     - step:
         image: atlassian/default-image:3
         name: deploy
