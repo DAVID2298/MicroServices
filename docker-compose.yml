@@ -96,7 +96,7 @@ services:
   db-hospital:
     image: mysql:8.0.28
     ports:
-      - "3320:3306"
+      - "3322:3306"
     restart: always
     environment:
       MYSQL_DATABASE: dbhospital
